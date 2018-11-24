@@ -87,14 +87,25 @@ bunny.stl, 50.0, 1.0, 1.0, 10, 0, 0, 0, 0, 0,  0,  3,#OBJ(color3)(pos3)(rot4)(sc
    SysTrans->SetValue(TRANSLATION, trans_x,  trans_y, trans_z, 2);
 //##################################################################
 //##################################################################  
-   int element_num = lines.size() - 3 ;
+   double lingtX, ligntY, lingtZ;
+   strvec.clear(); splitString(lines[3], strvec, ","); 
+   lingtX = atof( trim(strvec[1]).c_str() );
+   ligntY = atof( trim(strvec[2]).c_str() );
+   lingtZ = atof( trim(strvec[3]).c_str() );
+   
+   Light *Light1=new Light;
+   
+   Light1->SetValue(POSITION,  lingtX, ligntY, lingtZ, 1);
+   Light1->SetValue(SPOT_DIRECTION, -lingtX, -ligntY, -lingtZ);
+   Light1->SetValue(CUTOFFANGLE, 270.0);
+   Light1->TurnOn();     Light1->nodename="Light1";
+
+//##################################################################
+//##################################################################
+   int element_num = lines.size() - 4 ;
    StlShape       *StlElements = new StlShape[ element_num ];
    Transformation *StlTrans    = new Transformation[ element_num ];
-   Light *Light1=new Light;
-   Light1->SetValue(POSITION,  2, -1,  1.8, 1);
-   Light1->SetValue(SPOT_DIRECTION, -2, 1, -1.8);
-   Light1->SetValue(CUTOFFANGLE, 180.0);
-   Light1->TurnOn();     Light1->nodename="Light1";
+
   
    Polygon  *AxisXX = new Polygon; AxisXX ->nodename= "AxisXX";
    Polygon  *AxisYY = new Polygon; AxisYY ->nodename= "AxisYY";
@@ -107,7 +118,7 @@ bunny.stl, 50.0, 1.0, 1.0, 10, 0, 0, 0, 0, 0,  0,  3,#OBJ(color3)(pos3)(rot4)(sc
   
    for( i = 0; i <  element_num; i++ )
    {
-	   strvec.clear(); splitString(lines[3+i], strvec, ",");
+	   strvec.clear(); splitString(lines[4+i], strvec, ",");
 	   
 	   double  mat_h, mat_s, mat_v;
 	   double  obj_x, obj_y, obj_z;
