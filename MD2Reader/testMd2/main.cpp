@@ -91,10 +91,13 @@ void CreateTexture(UINT textureArray[], char* strFileName, int textureID)
 	glBindTexture(GL_TEXTURE_2D, textureArray[textureID]);
 
 	//gluBuild2DMipmaps(GL_TEXTURE_2D, 3, pBitmap.Width, pBitmap.Height, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.Buffer);
-    gluBuild2DMipmaps(GL_TEXTURE_2D, 3, pBitmap.sizeX, pBitmap.sizeY, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.data);
-	
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+  //  gluBuild2DMipmaps(GL_TEXTURE_2D, 3, pBitmap.sizeX, pBitmap.sizeY, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.data);
+	glTexImage2D( GL_TEXTURE_2D,0, GL_RGB, pBitmap.sizeX, pBitmap.sizeY ,0, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.data );
+	//glTexImage2D( GL_TEXTURE_2D,0, GL_RGB, pBitmap.sizeX, pBitmap.sizeY ,0, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.data );
+	//gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width,   height, GL_RGB, GL_UNSIGNED_BYTE, data );
+	//gluBuild2DMipmaps(GL_TEXTURE_2D, 3, pBitmap.sizeX, pBitmap.sizeY, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.data);
+	//glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR_MIPMAP_LINEAR);
 	
 	if (pBitmap.data)						
 		{
@@ -311,6 +314,15 @@ void keyboard(unsigned char key, int x, int y)
       case 27:
          exit(0);
          break;
+	 case 'a':								// 按下向左键
+		g_RotationSpeed -= 0.05f;
+        display();		
+	 break;
+
+	 case 'd':								// 按下向右键
+		g_RotationSpeed += 0.05f;
+		display();
+	 break;
    }
 }
 
