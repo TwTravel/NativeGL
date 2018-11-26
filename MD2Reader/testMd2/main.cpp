@@ -92,17 +92,18 @@ void CreateTexture(UINT textureArray[], char* strFileName, int textureID)
 
 	//gluBuild2DMipmaps(GL_TEXTURE_2D, 3, pBitmap.Width, pBitmap.Height, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.Buffer);
   //  gluBuild2DMipmaps(GL_TEXTURE_2D, 3, pBitmap.sizeX, pBitmap.sizeY, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.data);
-	glTexImage2D( GL_TEXTURE_2D,0, GL_RGB, pBitmap.sizeX, pBitmap.sizeY ,0, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.data );
 	//glTexImage2D( GL_TEXTURE_2D,0, GL_RGB, pBitmap.sizeX, pBitmap.sizeY ,0, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.data );
+	glTexImage2D( GL_TEXTURE_2D,0, GL_RGB, pBitmap.sizeX, pBitmap.sizeY ,0, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.data );
 	//gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width,   height, GL_RGB, GL_UNSIGNED_BYTE, data );
 	//gluBuild2DMipmaps(GL_TEXTURE_2D, 3, pBitmap.sizeX, pBitmap.sizeY, GL_RGB, GL_UNSIGNED_BYTE, pBitmap.data);
-	//glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR_MIPMAP_LINEAR);
 	
-	if (pBitmap.data)						
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+	
+	/*if (pBitmap.data)						
 		{
 			free(pBitmap.data);				
-		}
+		}*/
 
 }
 
@@ -239,7 +240,7 @@ void display()//RenderScene()
 				glNormal3f(-pObject->pNormals[ index ].x, -pObject->pNormals[ index ].y, -pObject->pNormals[ index ].z);
 					
 				// 判断是否有纹理坐标
-				if(pObject->pTexVerts) 
+				//if(pObject->pTexVerts) 
 				{
 					glTexCoord2f(pObject->pTexVerts[ index2 ].x, pObject->pTexVerts[ index2 ].y);
 				}
@@ -328,13 +329,13 @@ void keyboard(unsigned char key, int x, int y)
 
 int main(int argc, char** argv)
 {
-   init();
+   //init();
    glutInit(&argc, argv);
    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-   glutInitWindowSize (500, 500); 
+   glutInitWindowSize (800, 800); 
    glutInitWindowPosition (100, 100);
    glutCreateWindow (argv[0]);
-  // init ();
+   init ();
    glutDisplayFunc(display); 
    glutReshapeFunc(reshape);
    glutKeyboardFunc (keyboard);
